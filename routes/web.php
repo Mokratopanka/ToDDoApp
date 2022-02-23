@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\StatusController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Tasks;
 use App\Models\User;

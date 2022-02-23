@@ -35,7 +35,10 @@
 
                     <x-slot name="content">
                             
-                            
+                            <x-dropdown-link :href="url('user', Auth::user()->id)">
+                                {{ __('My Tasks') }}
+                            </x-dropdown-link>
+                        
                             <x-dropdown-link :href="route('tasks.index')">
                                 {{ __('All Tasks') }}
                             </x-dropdown-link>

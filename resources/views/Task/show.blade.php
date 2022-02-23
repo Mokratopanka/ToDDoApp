@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Task') }}
+            {{ __('My Tasks') }}
         </h2>
     </x-slot>
 
@@ -12,7 +12,7 @@
                     @extends('template')
                             @section('title', '- Current Task')
 
-                            @section('content', )
+                            @section('content')
 
                             <div class="container p-5">
 
@@ -20,7 +20,9 @@
                                     {{$task->title}}
                                     <span class="badge bg-dark text-secondary">{{$task->created_at->diffForHumans()}}</span>   
                                     </h4>
-
+                                    <a href="{{route('tasks.edit', $task->id)}}" class="btn btn-success">
+                                            Edit
+                                    </a>
                                     <div class="card bg-info">
                                         <div class="card-body">
                                             <div class="card-text">
@@ -30,7 +32,7 @@
                                             </div>
                                             <small>Last Updated - {{$task->updated_at->diffForHumans()}} </small>
                                             <br>
-                                            <small>- written by <a href="#">{{$task->user->email}}</a></small>
+                                            <small>- written by <a href="{{url('user', $task->id)}}">{{$task->user->email}}</a></small>
                                         </div>
                                     </div>
                                     <a href="{{route('tasks.index')}}">Back</a>

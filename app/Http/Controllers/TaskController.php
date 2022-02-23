@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Tasks;
 use App\Models\User;
+use App\Models\Status;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class TaskController extends Controller
 {
@@ -17,7 +19,10 @@ class TaskController extends Controller
     {
         $task = Tasks::all();
         
-        return view('task.index')->with('task', $task);
+        
+        return view('task.index')
+            ->with('task', $task);
+            
     }
 
     /**
@@ -27,7 +32,12 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+
+        $statusiky  = Status::all();
+
+        return view('task.create')
+            ->with('title', 'Add new Task')
+            ->with('statusiky', $statusiky);
     }
 
     /**
@@ -38,7 +48,16 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $task = request()->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'user_id' => ['required', Rule::exists('tasks', 'id')]
+        ]);
+
+        $task['user_id'] = auth()->id;
+        Tasks::create($task);
+
+        return redirect()->route('tasks.index');
     }
 
     /**
@@ -50,7 +69,6 @@ class TaskController extends Controller
     public function show($id)
     {
         $taskes = Tasks::findOrFail($id);
-        
         return view('task.show')->with('task', $taskes);
     }
 
@@ -62,7 +80,9 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        //
+        $task = Tasks::findOrFail($id);
+
+        return view('edit');
     }
 
     /**
@@ -74,7 +94,15 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required'
+        ]);
+
+        $task = new Tasks();
+        $task->title = $request->title;
+        $task->description = $request->description;
+        $task->save();
+        return redirect()->route('/tasks');
     }
 
     /**

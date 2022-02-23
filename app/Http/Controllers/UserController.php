@@ -12,9 +12,10 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-
-        return view('user')
-            ->with('title', $user->name)
-            ->with('tasks', $user->tasks);
+        
+        return view('task.index')
+            ->with('task', $user->tasks)
+            ->with('title', $user->name);
+            
     }
 }

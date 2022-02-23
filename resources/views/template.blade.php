@@ -21,6 +21,21 @@
       
             <header class="container">
 
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{route('tasks.index')}}">All Tasks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url('user', Auth::user()->id)}}">My Tasks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('tasks.create')}}">Create New Task</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('dashboard')}}">Dashboard</a>
+                        </li>
+                    </ul>
+
             </header> 
 
             <main>
